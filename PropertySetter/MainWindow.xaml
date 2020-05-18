@@ -1,0 +1,52 @@
+﻿<Window x:Class="PropertySetter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="http://schemas.trimble.com/fusion"
+        Title="PropertySetter"
+        Height="330" Width="600" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Style="{DynamicResource Theme.Window.Style}">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Margin="10" Orientation="Horizontal">
+            <ComboBox IsEditable="True" ui:Extensions.Watermark="Setting name" Width="250" 
+                      ItemsSource="{Binding Settings}" 
+                      SelectedItem="{Binding SelectedSetting}" 
+                      Text="{Binding NewSetting, UpdateSourceTrigger=LostFocus}"/>
+            <Button Command="{ui:CommandHandler LoadSetting}">Load</Button>
+            <Button Command="{ui:CommandHandler SaveSetting}">Save</Button>
+        </StackPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <TextBlock Text="Not connected" Visibility="{Binding IsConnected, Mode=OneWay, Converter={ui:ConvertBooleanToInverseVisibility}}" />
+            <TextBlock Visibility="{Binding IsConnected, Mode=OneWay, Converter={ui:ConvertBooleanToVisibility}}">
+                <Run Text="Connected to " />
+                <Run Text="{Binding ModelName, Mode=OneWay}" />
+            </TextBlock>
+        </StatusBar>
+        <StackPanel Margin="10,0,10,0" VerticalAlignment="Top">
+            <StackPanel Margin="0,0,0,10" HorizontalAlignment="Left" Orientation="Horizontal">
+                <ComboBox Width="160" ui:Extensions.Watermark="Filter" ItemsSource="{Binding Filters}" SelectedIndex="{Binding SelectedFilterIndex}"/>
+                <TextBox Width="160" ui:Extensions.Watermark="Property name" Text="{Binding AttributeName}"/>
+                <TextBox Width="160" ui:Extensions.Watermark="Property value" Text="{Binding AttributeValue}"/>
+                <Button Width="80" Command="{ui:CommandHandler AddRule}">Add rule</Button>
+            </StackPanel>
+            <DataGrid 
+                Name="RulesCollection" 
+                Height="150" 
+                AutoGenerateColumns="False" 
+                ItemsSource="{Binding Rules, UpdateSourceTrigger=PropertyChanged}"
+                SelectionMode="Single"
+                SelectedIndex="{Binding SelectedRuleIndex}"
+                CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Filter name" Binding="{Binding FilterName}"/>
+                    <DataGridTextColumn Header="Property name" Binding="{Binding PropertyName}"/>
+                    <DataGridTextColumn Header="Property value" Binding="{Binding PropertyValue}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{ui:CommandHandler RemoveSelectedRule}">Remove selected</Button>
+                <Button Command="{ui:CommandHandler ApplyRules}">Apply rules</Button>
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
+</Window>
