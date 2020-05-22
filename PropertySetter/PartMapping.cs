@@ -11,7 +11,7 @@ namespace PropertySetter
             Functions.Add("ASSEMBLY_START_NUMBER", new Func<string, ModelObject, bool>(SetAssemblyStartNumber));
             Functions.Add("ASSEMBLY_PREFIX",       new Func<string, ModelObject, bool>(SetAssemblyPrefix));
             Functions.Add("CAST_UNIT_TYPE",        new Func<string, ModelObject, bool>(SetCastUnitType));
-            Functions.Add("CLASS",                 new Func<string, ModelObject, bool>(SetClass));
+            Functions.Add("CLASS_ATTR",            new Func<string, ModelObject, bool>(SetClass));
             Functions.Add("FINISH",                new Func<string, ModelObject, bool>(SetFinish));
             Functions.Add("MATERIAL",              new Func<string, ModelObject, bool>(SetMaterial));
             Functions.Add("NAME",                  new Func<string, ModelObject, bool>(SetName));
