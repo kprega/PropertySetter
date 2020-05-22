@@ -123,6 +123,7 @@
     <Compile Include="PartMapping.cs" />
     <Compile Include="PropertySetterApp.cs" />
     <Compile Include="Rule.cs" />
+    <Compile Include="TaggedAttribute.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

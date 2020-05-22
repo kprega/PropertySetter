@@ -254,20 +254,23 @@
                 while (objectsEnumerator.MoveNext())
                 {
                     if (objectsEnumerator.Current == null) continue;
+                    var item = objectsEnumerator.Current;
+
                     // Get types inheritance hierarchy and corresponding mapping
-                    var typesTree = GetInheritanceHierarchy(objectsEnumerator.Current.GetType());
+                    var typesTree = GetInheritanceHierarchy(item.GetType());
                     var map = typeMap[typesTree.First(t => typeMap.Keys.Contains(t))];
 
                     if (map.Functions.ContainsKey(Rules[i].PropertyName))
                     {
-                        if (!map.Functions[Rules[i].PropertyName].Invoke(Rules[i].PropertyValue, objectsEnumerator.Current))
-                        {
-                            Log.Error($"\tFailed to modify item guid: {objectsEnumerator.Current.Identifier.GUID.ToString().ToUpper()}");
-                        }
+                        var parsedString = TaggedAttribute.Parse(Rules[i].PropertyValue, item);
+                        var valueSetSuccessfully = map.Functions[Rules[i].PropertyName].Invoke(parsedString, item);
+
+                        if (!valueSetSuccessfully)
+                            Log.Error($"\tFailed to modify item guid: {item.Identifier.GUID.ToString().ToUpper()}");
                     }
                     else
                     {
-                        Log.Warn($"\tProperty \"{Rules[i].PropertyName}\" not set for object guid: {objectsEnumerator.Current.Identifier.GUID.ToString().ToUpper()}, unsupported type {objectsEnumerator.Current.GetType()}");
+                        Log.Warn($"\tProperty \"{Rules[i].PropertyName}\" not set for object guid: {item.Identifier.GUID.ToString().ToUpper()}, unsupported type {objectsEnumerator.Current.GetType()}");
                     }
                 }
                 // Handle cancel request
