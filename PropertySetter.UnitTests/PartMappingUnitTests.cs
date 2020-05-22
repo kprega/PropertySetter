@@ -57,7 +57,7 @@ namespace PropertySetter.UnitTests
         [TestMethod]
         public void SetClass_ValueChangedIsValid_ReturnsTrue()
         {
-            Assert.IsTrue(mapping.Functions["CLASS"].Invoke("12", modelObject));
+            Assert.IsTrue(mapping.Functions["CLASS_ATTR"].Invoke("12", modelObject));
         }
 
         [TestMethod]

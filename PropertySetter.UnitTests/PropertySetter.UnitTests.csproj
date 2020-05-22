@@ -97,6 +97,7 @@
     <Compile Include="ReinforcementMappingUnitTests.cs" />
     <Compile Include="SingleRebarMappingUnitTests.cs" />
     <Compile Include="TestObjectsHandler.cs" />
+    <Compile Include="TaggedAttributeUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

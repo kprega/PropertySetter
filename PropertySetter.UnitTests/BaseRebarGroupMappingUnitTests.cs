@@ -31,7 +31,7 @@ namespace PropertySetter.UnitTests
         [ClassCleanup()]
         public static void MyClassCleanup()
         {
-            modelObject.Delete();
+            (modelObject as RebarGroup).Father.Delete();
         }
 
         #endregion
