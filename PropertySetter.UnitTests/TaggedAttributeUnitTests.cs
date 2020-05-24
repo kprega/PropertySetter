@@ -78,5 +78,16 @@ namespace PropertySetter.UnitTests
             var parseResult = TaggedAttribute.Parse(testString, modelObject);
             Assert.AreEqual(parseResult, expectedResult);
         }
+
+        [TestMethod]
+        public void Parse_PhaseAttributePresent_ReturnsNumberAsString()
+        {
+            var testString = "N[%PHASE%]-";
+            Phase p;
+            modelObject.GetPhase(out p);
+            var expectedResult = $"N[{p.PhaseNumber.ToString()}]-";
+            var parseResult = TaggedAttribute.Parse(testString, modelObject);
+            Assert.AreEqual(expectedResult, parseResult);
+        }
     }
 }
