@@ -26,7 +26,7 @@ namespace PropertySetter
                 // to be checked if same problem occurs with other parameters
 
                 var hashtable = new Hashtable();
-                if (propertyName == "PHASE")
+                if (propertyName.EndsWith("PHASE"))
                 {
                     modelObject.GetIntegerReportProperties(new ArrayList() { propertyName }, ref hashtable);
                 }
